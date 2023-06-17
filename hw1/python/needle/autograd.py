@@ -411,14 +411,24 @@ def find_topo_sort(node_list: List[Value]) -> List[Value]:
     sort.
     """
     ### BEGIN YOUR SOLUTION
-    raise NotImplementedError()
+    visited = []
+    topo_order = []
+    for node in node_list:
+        if node not in visited:
+            topo_sort_dfs(node,visited,topo_order)
+    return topo_order
     ### END YOUR SOLUTION
 
 
 def topo_sort_dfs(node, visited, topo_order):
     """Post-order DFS"""
     ### BEGIN YOUR SOLUTION
-    raise NotImplementedError()
+    visited.append(node)
+    if len(node.inputs) != 0:
+        for input_node in node.inputs:
+            if input_node not in visited:
+                topo_sort_dfs(input_node, visited, topo_order)
+    topo_order.append(node)
     ### END YOUR SOLUTION
 
 

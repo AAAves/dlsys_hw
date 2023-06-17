@@ -210,9 +210,12 @@ class Summation(TensorOp):
     def gradient(self, out_grad, node):
         ### BEGIN YOUR SOLUTION
         outShape = list(out_grad.shape)
-        for pos in sorted(list(self.axes)):
-            outShape.insert(pos,1)
         (intput,) = node.inputs
+        if self.axes != None:
+            for pos in sorted(list(self.axes)):
+                outShape.insert(pos,1)
+        else:
+            outShape = [1] * len(intput.shape)
         return broadcast_to(reshape(out_grad,outShape), intput.shape)
         ### END YOUR SOLUTION
 
